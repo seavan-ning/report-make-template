@@ -72,6 +72,22 @@ const templates: Template[] = [
     type: t('templates.types.invoice'),
     previewUrl: '/pdf-template/T02/main',
     sourceUrl: '/pdf-template/T02/main'
+  },
+  {
+    id: 'SIMPLE_TEST',
+    name: 'PDF 简单测试',
+    description: '用于测试PDF生成功能的简单页面',
+    type: '测试模板',
+    previewUrl: '/pdf-template/simple-test',
+    sourceUrl: '/pdf-template/simple-test'
+  },
+  {
+    id: 'MANY_PAGE',
+    name: 'PDF 性能测试 (100页)',
+    description: '包含100页内容的大容量PDF性能测试文档，用于测试PDF生成器的处理能力和性能极限',
+    type: '性能测试',
+    previewUrl: '/pdf-template/many-page',
+    sourceUrl: '/pdf-template/many-page'
   }
 ]
 

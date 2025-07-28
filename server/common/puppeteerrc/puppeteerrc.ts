@@ -33,11 +33,20 @@ export async function generatePdf(options: PdfGenerationOptions): Promise<PdfGen
 
   let browser;
   try {
-    // 启动浏览器时指定已安装的Chrome路径
+    // 启动浏览器时指定已安装的Chrome路径，并优化大文档处理
     browser = await puppeteer.launch({
       executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--disable-web-security',
+        '--disable-features=VizDisplayCompositor',
+        '--max-old-space-size=4096',  // 增加内存限制
+        '--memory-pressure-off'       // 关闭内存压力检测
+      ]
     });
 
     const page = await browser.newPage();
@@ -45,10 +54,14 @@ export async function generatePdf(options: PdfGenerationOptions): Promise<PdfGen
     // 设置视口大小
     await page.setViewport({ width: 1080, height: 1024 });
 
-    // 导航到指定URL
+    // 增加页面超时时间和内存限制，适应大文档
+    await page.setDefaultTimeout(120000);  // 2分钟超时
+    await page.setDefaultNavigationTimeout(120000);
+
+    // 导航到指定URL，增加超时时间
     await page.goto(options.url, {
       waitUntil: 'networkidle2',
-      timeout: 30000
+      timeout: 120000  // 2分钟超时，适应大文档加载
     });
 
     console.log('Navigated to URL: ', (new Date().getTime() - startTime.getTime()) / 1000);
@@ -63,7 +76,12 @@ export async function generatePdf(options: PdfGenerationOptions): Promise<PdfGen
     const filename = options.filename || `pdf-${Date.now()}.pdf`;
     const filePath = path.join(outputDir, filename);
 
-    // 生成PDF
+    // 等待页面完全加载，特别是对于大文档
+    console.log('Waiting for page to be fully loaded...');
+    // await page.waitForTimeout(3000);  // 额外等待3秒确保内容完全渲染
+
+    // 生成PDF，优化大文档处理
+    console.log('Starting PDF generation...');
     await page.pdf({
       path: filePath,
       format: options.format || 'A4',
@@ -73,7 +91,10 @@ export async function generatePdf(options: PdfGenerationOptions): Promise<PdfGen
         bottom: '1cm',
         left: '1cm',
         right: '1cm',
-      }
+      },
+      preferCSSPageSize: true,  // 使用CSS定义的页面大小
+      displayHeaderFooter: false,
+      timeout: 300000  // 5分钟超时，适应大文档生成
     });
 
     const endTime = new Date();
