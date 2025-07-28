@@ -1,0 +1,39 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "@nuxt/eslint": "1.7.1",
+    "@nuxt/ui": "3.3.0",
+    "@nuxtjs/i18n": "^10.0.3",
+    "@pinia/nuxt": "^0.11.2",
+    "@types/prismjs": "^1.26.5",
+    "codemirror": "^5.65.19",
+    "codemirror-editor-vue3": "^2.8.0",
+    "eslint": "^9.32.0",
+    "nuxt": "^4.0.1",
+    "pinia": "^3.0.3",
+    "pinia-plugin-persistedstate": "^4.4.1",
+    "prettier": "^3.6.2",
+    "prismjs": "^1.30.0",
+    "puppeteer": "^24.15.0",
+    "puppeteer-core": "^24.15.0",
+    "typescript": "^5.8.3",
+    "vue": "^3.5.17",
+    "vue-pdf-embed": "^2.1.3",
+    "vue-router": "^4.5.1"
+  },
+  "packageManager": "pnpm@10.11.0+sha512.6540583f41cc5f628eb3d9773ecee802f4f9ef9923cc45b69890fb47991d4b092964694ec3a4f738a420c918a333062c8b925d312f42e4f0c263eb603551f977",
+  "devDependencies": {
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}
