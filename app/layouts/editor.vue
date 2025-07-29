@@ -157,21 +157,34 @@
           <!-- 模式切换按钮 -->
           <div class="flex items-center gap-1 bg-white/20 rounded-lg p-1">
             <button
-              class="px-3 py-1 text-xs font-medium rounded-md transition-all duration-200"
-              :class="currentMode === 'development'
-                ? 'bg-white text-pink-600 shadow-sm'
-                : 'text-white hover:bg-white/20'"
+              class="px-3 py-1 text-xs font-medium rounded-md transition-all duration-200 flex items-center gap-1"
+              :class="[
+                currentMode === 'development'
+                  ? 'bg-white text-pink-600 shadow-sm'
+                  : 'text-white hover:bg-white/20',
+                isGeneratingPdf ? 'opacity-50 cursor-not-allowed' : ''
+              ]"
+              :disabled="isGeneratingPdf"
               @click="setPreviewMode('development')"
             >
               开发模式
             </button>
             <button
-              class="px-3 py-1 text-xs font-medium rounded-md transition-all duration-200"
-              :class="currentMode === 'pdf'
-                ? 'bg-white text-pink-600 shadow-sm'
-                : 'text-white hover:bg-white/20'"
+              class="px-3 py-1 text-xs font-medium rounded-md transition-all duration-200 flex items-center gap-1"
+              :class="[
+                currentMode === 'pdf'
+                  ? 'bg-white text-pink-600 shadow-sm'
+                  : 'text-white hover:bg-white/20',
+                isGeneratingPdf ? 'opacity-50 cursor-not-allowed' : ''
+              ]"
+              :disabled="isGeneratingPdf"
               @click="setPreviewMode('pdf')"
             >
+              <Icon
+                v-if="isGeneratingPdf && currentMode === 'pdf'"
+                name="i-heroicons-arrow-path"
+                class="w-3 h-3 animate-spin"
+              />
               PDF模式
             </button>
           </div>
@@ -180,11 +193,21 @@
         <!-- 右侧操作按钮 -->
         <div class="flex items-center gap-2">
           <button
-            class="p-1.5 hover:bg-white/20 rounded transition-colors"
-            :title="$t('editor.preview.refreshPreview')"
-            @click="previewPanelRef?.refreshPreview()"
+            class="p-1.5 rounded transition-colors"
+            :class="[
+              isGeneratingPdf
+                ? 'opacity-50 cursor-not-allowed'
+                : 'hover:bg-white/20'
+            ]"
+            :title="isGeneratingPdf ? '正在生成PDF，请稍候...' : $t('editor.preview.refreshPreview')"
+            :disabled="isGeneratingPdf"
+            @click="!isGeneratingPdf && previewPanelRef?.refreshPreview()"
           >
-            <Icon name="i-heroicons-arrow-path" class="w-4 h-4 text-white" />
+            <Icon
+              name="i-heroicons-arrow-path"
+              class="w-4 h-4 text-white"
+              :class="{ 'animate-spin': isGeneratingPdf }"
+            />
           </button>
         </div>
       </div>
@@ -251,6 +274,11 @@ const previewPanelRef = ref<any>(null)
 
 // 预览模式状态
 const currentMode = ref<'development' | 'pdf'>('development')
+
+// 计算属性：是否正在生成PDF
+const isGeneratingPdf = computed(() => {
+  return previewPanelRef.value?.isGeneratingPdf || false
+})
 
 // 使用百分比宽度，确保总和为100%
 const leftWidthPercent = ref(15) // 左侧文件树 15%
@@ -427,10 +455,20 @@ const isVueFile = (file: FileItem | null): boolean => {
 
 // 预览模式管理
 const setPreviewMode = (mode: 'development' | 'pdf') => {
+  // 如果正在生成PDF，不允许切换模式
+  if (isGeneratingPdf.value) {
+    console.warn('Cannot switch mode while PDF is being generated')
+    return
+  }
+
   currentMode.value = mode
   // 通知PreviewPanel组件模式变化
   if (previewPanelRef.value && previewPanelRef.value.setMode) {
-    previewPanelRef.value.setMode(mode)
+    const success = previewPanelRef.value.setMode(mode)
+    if (!success) {
+      // 如果设置失败，恢复原来的模式
+      console.warn('Failed to set preview mode')
+    }
   }
 }
 

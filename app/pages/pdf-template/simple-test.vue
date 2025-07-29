@@ -17,7 +17,7 @@
       <!-- 内容区域 -->
       <div class="space-y-8">
         <!-- 基本信息卡片 -->
-        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <div class="bg-blue-50 border border-white rounded-lg p-6">
           <h2 class="text-2xl font-semibold text-blue-800 mb-4">
             基本信息
           </h2>
@@ -50,7 +50,7 @@
         </div>
 
         <!-- 功能特性 -->
-        <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+        <div class="bg-green-50 border border-white rounded-lg p-6">
           <h2 class="text-2xl font-semibold text-green-800 mb-4">
             功能特性
           </h2>
@@ -83,12 +83,12 @@
         </div>
 
         <!-- 技术规格 -->
-        <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+        <div class="bg-purple-50 border border-white rounded-lg p-6">
           <h2 class="text-2xl font-semibold text-purple-800 mb-4">
             技术规格
           </h2>
           <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-purple-200">
+            <table class="min-w-full divide-y divide-white">
               <thead class="bg-purple-100">
                 <tr>
                   <th class="px-6 py-3 text-left text-xs font-medium text-purple-700 uppercase tracking-wider">
@@ -102,7 +102,7 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="bg-white divide-y divide-purple-200">
+              <tbody class="bg-white divide-y divide-white">
                 <tr>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     Nuxt.js
