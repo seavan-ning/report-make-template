@@ -1,6 +1,6 @@
 # Report Make
 
-一个基于 Nuxt.js 和 Vue.js 的 PDF 模板编辑器，参考 jsreport 的设计风格。
+一个基于 Nuxt.js 和 Vue.js 的 PDF 模板、动态报告模板编辑器，参考 jsreport 的设计风格。
 
 ## 功能特性
 
@@ -45,17 +45,34 @@
 
 ### 📁 项目结构
 
+
 ```
-app/
-├── app.vue                 # 主应用组件
-├── components/
-│   ├── FileTree.vue       # 文件树组件
-│   ├── FileTreeItem.vue   # 文件树项组件
-│   ├── CodeEditor.vue     # 代码编辑器组件
-│   ├── PdfPreview.vue     # PDF预览组件
-│   └── PdfViewer.vue      # PDF查看器组件（暂未使用）
-└── pages/                 # 页面目录
+├── app/                      # 前端主应用目录
+│   ├── app.vue               # 应用入口组件，负责全局布局
+│   ├── app.config.ts         # 应用配置
+│   ├── assets/               # 静态资源（如样式、图片）
+│   ├── components/           # 通用 UI 组件
+│   │   ├── FileTree.vue      # 文件树主组件
+│   │   ├── FileTreeItem.vue  # 文件树单项组件
+│   │   ├── CodeEditor.vue    # 代码编辑器组件
+│   │   ├── PdfPreview.vue    # PDF 预览组件
+│   ├── layouts/              # 页面布局组件
+│   ├── pages/                # 路由页面目录
+│   ├── plugins/              # 插件（如 pinia 状态管理）
+│   ├── stores/               # 状态管理（如 pinia store）
+├── public/                   # 公共静态资源
+├── server/                   # 后端 API 及服务端逻辑
+├── composables/              # 组合式函数（如 useFileSystem）
+├── config.ts                 # 全局配置
+├── nuxt.config.ts            # Nuxt 配置文件
 ```
+
+主要目录说明：
+- `app/`：前端主应用，包含页面、组件、布局、插件等。
+- `public/`：静态资源目录，直接对外暴露。
+- `server/`：后端 API 及服务端逻辑。
+- `composables/`：可复用的组合式函数。
+- `config.ts`、`nuxt.config.ts`：全局和框架配置文件。
 
 ### 🛠️ 技术栈
 
@@ -117,11 +134,16 @@ app/
 - [ ] 支持文件上传
 - [ ] 添加主题切换
 
-### 📝 注意事项
+### 📋项目示例图
 
-- PDF 预览功能目前只是占位界面
-- 代码编辑器目前只支持查看，不支持编辑
-- 文件树中的文件是静态示例数据
+1. **开发模式**
+
+   ![alt text](./public/img/dev.png)
+
+2. **PDF模式**
+
+   ![alt text](./public//img//PDF.png)
+
 
 ### 🤝 贡献
 

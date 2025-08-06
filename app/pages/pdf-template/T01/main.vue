@@ -3,7 +3,7 @@
     <div class="max-w-4xl mx-auto">
       <h1 class="text-4xl font-bold text-gray-800 mb-6">PDF Template T02</h1>
       <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-        <h2 class="text-2xl font-semibold text-gray-700 mb-4">测试自动刷新功能66</h2>
+        <h2 class="text-2xl font-semibold text-gray-700 mb-4">测试自动刷新功能</h2>
         <p class="text-gray-600 mb-4">
           当您保存此文件时，右侧的预览应该会自动刷新显示最新内容。
         </p>
