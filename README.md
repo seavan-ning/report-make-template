@@ -7,6 +7,12 @@
  ### gitcode：https://gitcode.com/seavan_ning/report-make-template
  ### gitee：https://gitee.com/seavan_ning/report-make-template
 
+## QQ交流群 591162927
+
+### 591162927
+
+![alt text](./public/img/qrcode_1754565549836.jpg)
+
 ## 功能特性
 
 ### ✅ 已完成功能
