@@ -9,7 +9,7 @@
 项目地址：
  github：https://github.com/seavan-ning/report-make-template
  gitcode：https://gitcode.com/seavan_ning/report-make-template
- gitee：https://gitee.com/louisxc/report-make-template
+ gitee：https://gitee.com/seavan_ning/report-make-template
 -->
 <template>
   <div class="h-screen flex flex-col bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
